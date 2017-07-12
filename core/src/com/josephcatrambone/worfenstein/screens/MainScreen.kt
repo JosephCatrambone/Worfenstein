@@ -64,21 +64,6 @@ class MainScreen : Screen() {
 
 		shapeRenderer.setAutoShapeType(true)
 		shapeRenderer.begin()
-		// DEBUG: Player centric drawing.
-		shapeRenderer.color = Color.BLUE
-		val playerVision = player.sightLine
-		shapeRenderer.line(playerVision.start.toGDXVector2(), playerVision.end.toGDXVector2())
-		for(i in 0 until level.walls.size) {
-			val wall = Line(level.walls[i].start, level.walls[(i+1)%level.walls.size].start)
-			shapeRenderer.line(wall.start.toGDXVector2(), wall.end.toGDXVector2())
-			val intersection = playerVision.segmentIntersection2D(wall)
-			if(intersection != null) {
-				shapeRenderer.color = Color.WHITE
-				shapeRenderer.circle(intersection.x, intersection.y, 3f)
-				shapeRenderer.color = Color.BLUE
-			}
-		}
-
 		// Render the map
 		level.draw(shapeRenderer, player)
 		shapeRenderer.end()
